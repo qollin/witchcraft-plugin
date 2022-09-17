@@ -63,6 +63,12 @@
         (catch Throwable e
           (log-error e "Init form failed to evaluate:" (pr-str form)))))
 
+    (.setExecutor (.getCommand plugin "showgui") (proxy [org.bukkit.command.CommandExecutor] []
+                                                   (onCommand [sender command label args] 
+                                                     (let [command-fn (find-var (symbol "freitonal.commands" "command"))]
+                                                       (command-fn :showgui))
+                                                       true)))
+    
     (doto (Thread.
            ^Runnable
            #(try

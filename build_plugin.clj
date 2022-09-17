@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [clojure.java.io :as io]
             [shade.core :as shade]
+            [clj-yaml.core :as yaml]
             [lambdaisland.classpath :as licp])
   (:import java.nio.file.FileSystems
            java.nio.file.Path
@@ -26,23 +27,22 @@
   (b/delete {:path "target"})
   params)
 
-;; clj-yaml misbehaves with Glowstone on the classpath, because Glowstone
-;; vendors an old version of SnakeYaml. For our needs this is good enough.
-(defn yaml-str [m]
-  (apply str
-         (map (fn [[k v]]
-                (str (name k) ": " (pr-str v) "\n")) m)))
-
 (defn plugin-yml [{:keys [target-dir api-version]}]
   (spit (io/file target-dir "plugin.yml")
-        (yaml-str
+        (yaml/generate-string
          {:main "com.lambdaisland.witchcraft.ClojurePlugin"
           :name "Witchcraft"
           :version version
           :author "lambdaisland"
           :description "Bootstrap Clojure/nREPL/Witchcraft"
           :api-version api-version
-          :softdepend ["Citizens"]})))
+          :softdepend ["Citizens"]
+          :commands {
+                     :showgui {
+                               :description "Show a custom GUI"
+                               :usage "/showgui" 
+                     }
+          }} :dumper-options {:flow-style :block})))
 
 (defn shade-jar [in out]
   ;; java

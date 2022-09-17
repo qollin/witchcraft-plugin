@@ -9,7 +9,6 @@
 
   :witchcraft {:extra-deps {com.lambdaisland/witchcraft {:mvn/version "RELEASE"}}}
 
-  :mc/glowstone-1.12 {:extra-deps {net.glowstone/glowstone {:mvn/version "2021.8.0"}}}
   :mc/paper-1.17 {:extra-deps {io.papermc.paper/paper-api {:mvn/version "1.17.1-R0.1-SNAPSHOT"}}}
   :mc/paper-1.18 {:extra-deps {io.papermc.paper/paper-api {:mvn/version "1.18-rc3-R0.1-SNAPSHOT"}}}
   :mc/spigot-1.17 {:extra-deps {org.spigotmc/spigot-api {:mvn/version "1.17.1-R0.1-SNAPSHOT"}}}
@@ -27,6 +26,7 @@
    :extra-deps  {io.github.clojure/tools.build {:git/url "https://github.com/clojure/tools.build"
                                                 :git/sha "816623ae1b62bbf7987b6eb5caab90e14191fa97"
                                                 :git/branch "master"}
+                 clj-yaml/clj-yaml {:mvn/version "0.4.0"}
                  com.lambdaisland/classpath {:mvn/version "0.0.27"}
                  shade/shade {:mvn/version "0.4.0"}}
    :ns-default  build-plugin
